@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">	
+
+<hibernate-configuration>
+<session-factory>
+        <!-- Configuration de la base de données PostgreSQL -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/projet11_hibernate</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">Bora16hae</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+<property name="current_session_context_class">thread</property>
+
+<property name="hibernate.cache.use_second_level_cache">false</property>
+    <property name="hibernate.cache.use_query_cache">false</property>
+        <!-- Affichage des requêtes SQL -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Création des tables automatique (peut être `update`, `validate` ou `create`) -->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <!-- Ajouter les classes d'entité Hibernate -->
+       <mapping resource="mapping/Employe.hbm.xml"/>
+       <mapping resource="mapping/Affecter.hbm.xml"/>
+       <mapping resource="mapping/Lieu.hbm.xml"/>
+        
+    </session-factory>
+</hibernate-configuration>

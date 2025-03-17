@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+            http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         id="WebApp_ID" version="3.1">
+    <display-name>User Management Web Application</display-name>
+
+  <servlet>
+    <servlet-name>EmployeServlet</servlet-name>
+    <servlet-class>servlet.EmployeServlet</servlet-class>
+</servlet>
+ <servlet>
+    <servlet-name>LieuServlet</servlet-name>
+    <servlet-class>servlet.LieuServlet</servlet-class>
+</servlet>
+ <servlet>
+    <servlet-name>AffecterServlet</servlet-name>
+    <servlet-class>servlet.AffecterServlet</servlet-class>
+</servlet>
+
+  <servlet-mapping>
+    <servlet-name>EmployeServlet</servlet-name>
+    <url-pattern>/newFormEmploye</url-pattern>
+    <url-pattern>/addEmploye</url-pattern>
+    <url-pattern>/updateEmploye</url-pattern>
+    <url-pattern>/deleteEmploye</url-pattern>
+    <url-pattern>/editFormEmploye</url-pattern>
+    <url-pattern>/listEmployes</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>LieuServlet</servlet-name>
+    <url-pattern>/addLieu</url-pattern>
+    <url-pattern>/updateLieu</url-pattern>
+    <url-pattern>/deleteLieu</url-pattern>
+    <url-pattern>/newFormLieu</url-pattern>
+    <url-pattern>/editFormLieu</url-pattern>
+    <url-pattern>/listLieux</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>AffecterServlet</servlet-name>
+    <url-pattern>/addAffectation</url-pattern>
+    <url-pattern>/deleteAffectation</url-pattern>
+    <url-pattern>/newFormAffecter</url-pattern>
+    <url-pattern>/editFormAffecter</url-pattern>
+    <url-pattern>/updateAffectation</url-pattern>
+    <url-pattern>/listAffectations</url-pattern>
+</servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <jsp-config>
+	    <taglib>
+	        <taglib-uri>http://xmlns.jcp.org/jsp/jstl/core</taglib-uri>
+	        <taglib-location>/WEB-INF/lib/jstl-1.2.jar</taglib-location>
+	    </taglib>
+	</jsp-config>
+    
+
+</web-app>

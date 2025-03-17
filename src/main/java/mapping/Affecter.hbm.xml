@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+	
+<hibernate-mapping>
+	<class name="model.AffecterModel" table="affecter">
+		<id name="codeaffecter" column="codeaffecter">
+			<generator class="identity"></generator>
+		</id>
+		
+		<many-to-one name="employe" class="model.EmployeModel" column="codeemp"/>
+		<many-to-one name="lieu" class="model.LieuModel" column="codelieu"/>
+        <property name="date" column="date" type="date"/>
+	</class>
+</hibernate-mapping>
