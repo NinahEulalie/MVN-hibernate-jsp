@@ -97,7 +97,7 @@
 			<h3 class="text-center">Liste des lieux</h3>
 			<hr>
 			<div class="container text-left">
-				<a href="<%=request.getContextPath()%>/addLieu" class="btn btn-success">Ajouter un lieu</a>
+				<a href="<%=request.getContextPath()%>/newFormLieu" class="btn btn-success">Ajouter un lieu</a>
 			<br><br>
 			<table class="table table-bordered">
 				<thead>
@@ -115,8 +115,8 @@
 			            <td><%= lieu.getDesignation() %></td>
 			            <td><%= lieu.getProvince() %></td>
             			<td>
-			                <a href="<%= request.getContextPath() %>/updateLieu&codelieu=<%= lieu.getCodelieu() %>">Modifier</a> |
-							<a href="<%= request.getContextPath() %>/deleteLieu&codelieu=<%= lieu.getCodelieu() %>" 
+			                <a href="editFormLieu?codelieu=<%= lieu.getCodelieu() %>">Modifier</a> |
+							<a href="deleteLieu?codelieu=<%= lieu.getCodelieu() %>" 
 							onclick="return confirm('Supprimer ce lieu ?')">Supprimer</a>
             			</td>		
 					</tr>

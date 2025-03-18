@@ -17,14 +17,39 @@ public class LieuDAO {
         transaction.commit();
         session.close();
     }
+    
+    // READ_BY_ID (récupérer un lieu par ID)
+    public LieuModel getLieuById(Long id) {
+        Session session = HibernateUtil.getSessionFactory().openSession(); //Ouvre une nouvelle session
+        Transaction transaction = null;
+        LieuModel lieu = null;
 
-    // READ (récupérer un lieu par ID)
+        try {
+            transaction = session.beginTransaction(); //Démarre une transaction
+            lieu = session.get(LieuModel.class, id);
+            transaction.commit(); //Valide la transaction
+        } 
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback(); //En cas d'erreur, rollback
+            }
+            e.printStackTrace();
+        } 
+        finally {
+            session.close(); //Ferme la session après utilisation
+        }
+
+        return lieu;
+    }
+
+
+    /** READ (récupérer un lieu par ID)
     public LieuModel getLieuById(Long id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         LieuModel lieu = (LieuModel) session.get(LieuModel.class, id);
         session.close();
         return lieu;
-    }
+    }*/
     
     /**
      * Get all Users
@@ -49,7 +74,8 @@ public class LieuDAO {
             // Debugging
             if (lieux == null || lieux.isEmpty()) {
                 System.out.println("⚠ Aucun lieu trouvé en base de données !");
-            } else {
+            } 
+            else {
                 System.out.println("✅ Lieux trouvés : " + lieux.size());
             }
         } 

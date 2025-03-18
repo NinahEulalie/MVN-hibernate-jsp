@@ -18,30 +18,30 @@ public class EmployeDAO {
         session.close();
     }
 
-    // READ (récupérer un employé par ID)
+    // READ_BY_ID (récupérer un employé par ID)
     public EmployeModel getEmployeById(Long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession(); // Ouvre une nouvelle session
+        Session session = HibernateUtil.getSessionFactory().openSession(); //Ouvre une nouvelle session
         Transaction transaction = null;
         EmployeModel employe = null;
 
         try {
-            transaction = session.beginTransaction(); // ✅ Démarre une transaction
+            transaction = session.beginTransaction(); //Démarre une transaction
             employe = session.get(EmployeModel.class, id);
-            transaction.commit(); // ✅ Valide la transaction
-        } catch (Exception e) {
+            transaction.commit(); //Valide la transaction
+        } 
+        catch (Exception e) {
             if (transaction != null) {
-                transaction.rollback(); // ❌ En cas d'erreur, rollback
+                transaction.rollback(); //En cas d'erreur, rollback
             }
             e.printStackTrace();
-        } finally {
-            session.close(); // ✅ Ferme la session après utilisation
+        } 
+        finally {
+            session.close(); //Ferme la session après utilisation
         }
 
         return employe;
     }
 
-    
-    
     /**public EmployeModel getEmployeById(Long id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         EmployeModel employe = (EmployeModel) session.get(EmployeModel.class, id);
@@ -72,15 +72,18 @@ public class EmployeDAO {
             // Debugging
             if (employes == null || employes.isEmpty()) {
                 System.out.println("⚠ Aucun employé trouvé en base de données !");
-            } else {
+            } 
+            else {
                 System.out.println("✅ Employés trouvés : " + employes.size());
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-        } finally {
+        } 
+        finally {
             if (session != null) {
                 session.close();  // ✅ Fermer la session ici
             }

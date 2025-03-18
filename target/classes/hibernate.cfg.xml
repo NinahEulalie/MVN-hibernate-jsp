@@ -21,7 +21,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- Création des tables automatique (peut être `update`, `validate` ou `create`) -->
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Ajouter les classes d'entité Hibernate -->
        <mapping resource="mapping/Employe.hbm.xml"/>

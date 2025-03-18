@@ -6,12 +6,12 @@ import java.util.Date;
 public class AffecterModel {
 
     private Long codeaffecter;
-
     private EmployeModel employe;
-
     private LieuModel lieu;
     private Date date;
-
+    
+    //constructeur par défaut OBLIGATOIRE pour hibernate
+    public AffecterModel() {}
 
     public AffecterModel(EmployeModel employe, LieuModel lieu, Date date) {
         this.employe = employe;

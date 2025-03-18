@@ -3,10 +3,11 @@ package model;
 public class LieuModel {
 
     private Long codelieu;
-
     private String designation;
-
     private String province;
+    
+    //constructeur par défaut OBLIGATOIRE pour hibernate
+    public LieuModel() {}
 
     public LieuModel(String designation, String province) {
         this.designation = designation;
