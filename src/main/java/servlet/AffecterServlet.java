@@ -115,6 +115,12 @@ public class AffecterServlet extends HttpServlet {
         // 🔹 Afficher le formulaire d'ajout
         private void showNewForm(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
+        	List<EmployeModel> employes = employeDAO.getAllEmployes(); //Récupération de la liste des employés
+            request.setAttribute("listEmployes", employes);
+
+            List<LieuModel> lieux = lieuDAO.getAllLieux(); //Récupération de la liste des lieux
+            request.setAttribute("listLieux", lieux);
+        	
             RequestDispatcher dispatcher = request.getRequestDispatcher("affecter-form.jsp");
             dispatcher.forward(request, response);
         }
@@ -124,6 +130,13 @@ public class AffecterServlet extends HttpServlet {
         	 Long codeAffecter = Long.parseLong(request.getParameter("codeaffecter"));
              AffecterModel existingAffectation = affecterDAO.getAffectationById(codeAffecter);
              request.setAttribute("affectation", existingAffectation);
+             
+             List<EmployeModel> employes = employeDAO.getAllEmployes(); //Récupération de la liste des employés
+             request.setAttribute("listEmployes", employes);
+
+             List<LieuModel> lieux = lieuDAO.getAllLieux(); //Récupération de la liste des lieux
+             request.setAttribute("listLieux", lieux);
+             
              request.getRequestDispatcher("affecter_form.jsp").forward(request, response);
         }
 

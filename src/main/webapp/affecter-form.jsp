@@ -47,13 +47,19 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
 			        <select name="codeemp" required>
 			            <%
 			                List<EmployeModel> employes = (List<EmployeModel>) request.getAttribute("listEmployes");
-			                for (EmployeModel emp : employes) {
-			            %>
-			                <option value="<%= emp.getCodeemp() %>" <%= (selectedEmploye != null && selectedEmploye.equals(emp.getCodeemp())) ? "selected" : "" %>>
-			                    <%= emp.getNom() %> <%= emp.getPrenom() %> - <%= emp.getPoste() %>
-			                </option>
-			            <%
-			                }
+				            if (employes != null) {
+				                for (EmployeModel emp : employes) {
+				        %>
+				                    <option value="<%= emp.getCodeemp() %>">
+				                        <%= emp.getNom() %> <%= emp.getPrenom() %> - <%= emp.getPoste() %>
+				                    </option>
+				        <%
+				                }
+				            } else {
+				        %>
+				                <option disabled>Aucun employé trouvé</option>
+				        <%
+				            }
 			            %>
 			        </select>
 	            </fieldset>
@@ -63,13 +69,19 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
 			        <select name="codelieu" required>
 			            <%
 			                List<LieuModel> lieux = (List<LieuModel>) request.getAttribute("listLieux");
-			                for (LieuModel lieu : lieux) {
-			            %>
-			                <option value="<%= lieu.getCodelieu() %>" <%= (selectedLieu != null && selectedLieu.equals(lieu.getCodelieu())) ? "selected" : "" %>>
-			                    <%= lieu.getDesignation() %> - <%= lieu.getProvince() %>
-			                </option>
-			            <%
-			                }
+				            if (lieux != null) {
+				                for (LieuModel lieu : lieux) {
+				        %>
+				                    <option value="<%= lieu.getCodelieu() %>">
+				                        <%= lieu.getDesignation() %> <%= lieu.getProvince() %>
+				                    </option>
+				        <%
+				                }
+				            } else {
+				        %>
+				                <option disabled>Aucun lieu trouvé</option>
+				        <%
+				            }
 			            %>
 			        </select>
 	            </fieldset>

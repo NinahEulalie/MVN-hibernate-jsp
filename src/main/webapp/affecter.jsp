@@ -98,7 +98,7 @@ model.EmployeModel, model.LieuModel" %>
 			<h3 class="text-center">Liste des affectations</h3>
 			<hr>
 			<div class="container text-left">
-				<a href="<%=request.getContextPath()%>/addAffectation" class="btn btn-success">Ajouter une affectation</a>
+				<a href="<%=request.getContextPath()%>/newFormAffecter" class="btn btn-success">Ajouter une affectation</a>
 			<br><br>
 			<table class="table table-bordered">
 				<thead>
@@ -122,8 +122,8 @@ model.EmployeModel, model.LieuModel" %>
 		                <td><%= affectation.getLieu().getProvince() %></td>
 		                <td><%= affectation.getDate() %></td>
 		                <td>
-		                    <a href="<%= request.getContextPath() %>/updateAffectation&codeaffecter=<%= affectation.getCodeaffecter() %>">Modifier</a> | 
-		                    <a href="<%= request.getContextPath() %>/deleteAffectation&codeaffecter=<%= affectation.getCodeaffecter() %>" 
+		                    <a href="/editFormAffecter?codeaffecter=<%= affectation.getCodeaffecter() %>">Modifier</a> | 
+		                    <a href="/deleteAffectation?codeaffecter=<%= affectation.getCodeaffecter() %>" 
 		                    onclick="return confirm('Voulez-vous vraiment supprimer cette affectation ?');">Supprimer</a>
 		                </td>		
 					</tr>

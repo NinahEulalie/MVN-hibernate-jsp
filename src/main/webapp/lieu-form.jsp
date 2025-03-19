@@ -27,7 +27,7 @@
                 <c:when test="${lieu != null}">
                     <form action="<c:url value='/updateLieu' />" method="post">
                         <h2>Modifier un lieu</h2>
-                        <input type="hidden" name="codeemp" value="<c:out value='${lieu.codelieu}' />" />
+                        <input type="hidden" name="codelieu" value="<c:out value='${lieu.codelieu}' />" />
                 </c:when>
                 <c:otherwise>
                     <form action="<c:url value='/addLieu' />" method="post">
