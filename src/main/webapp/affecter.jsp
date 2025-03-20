@@ -3,7 +3,7 @@
 model.EmployeModel, model.LieuModel" %>
 
 <%
-    Object obj = request.getAttribute("affecter");
+    Object obj = request.getAttribute("affectations");
     List<AffecterModel> affectations = new ArrayList<>();
 
     // Vérifier si obj est bien une liste

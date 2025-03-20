@@ -78,7 +78,8 @@ public class AffecterServlet extends HttpServlet {
         else {
             System.out.println("✅ Nombre d'affectations récupérées : " + affectations.size());
             for (AffecterModel affectation : affectations) {
-                System.out.println(" - " + affectation.getCodeaffecter() + " | " + affectation.getEmploye() + " | " + affectation.getLieu() + " | " + affectation.getDate());
+                System.out.println(" - " + affectation.getCodeaffecter() + " | " + affectation.getEmploye().getNom() + " | " + " | " + affectation.getEmploye().getPrenom() + " | " 
+                		+ " | " + affectation.getEmploye().getPoste() + " | " + affectation.getLieu().getDesignation() + " | " + " | " + affectation.getLieu().getProvince() + " | " + affectation.getDate());
             }
         }
 
@@ -87,26 +88,31 @@ public class AffecterServlet extends HttpServlet {
     }
         
         
-     // 🔹 Ajouter une affectation
+     	// 🔹 Ajouter une affectation
         private void addAffectation(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        	Long codeEmp = Long.parseLong(request.getParameter("codeemp"));
-            Long codeLieu = Long.parseLong(request.getParameter("codelieu"));
+        	Long codeemp = Long.parseLong(request.getParameter("codeemp"));
+            Long codelieu = Long.parseLong(request.getParameter("codelieu"));
             String dateString = request.getParameter("date");
             
             // Conversion de la date saisie (format: yyyy-MM-dd)
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateAffectation = null;
+            Date date = null;
 			try {
-				dateAffectation = formatter.parse(dateString);
-			} catch (ParseException e) {
+				date = formatter.parse(dateString);
+			} 
+			catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-            EmployeModel employe = employeDAO.getEmployeById(codeEmp);
-            LieuModel lieu = lieuDAO.getLieuById(codeLieu);
+            EmployeModel employe = employeDAO.getEmployeById(codeemp);
+            LieuModel lieu = lieuDAO.getLieuById(codelieu);
 
-            AffecterModel affectation = new AffecterModel(employe, lieu, dateAffectation);
+            AffecterModel affectation = new AffecterModel(employe, lieu, date);
+            affectation.setEmploye(employe);
+            affectation.setLieu(lieu);
+            affectation.setDate(date);
+            
             affecterDAO.saveAffectation(affectation);
             
             response.sendRedirect("listAffectations");
@@ -116,52 +122,67 @@ public class AffecterServlet extends HttpServlet {
         private void showNewForm(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
         	List<EmployeModel> employes = employeDAO.getAllEmployes(); //Récupération de la liste des employés
-            request.setAttribute("listEmployes", employes);
-
             List<LieuModel> lieux = lieuDAO.getAllLieux(); //Récupération de la liste des lieux
+            
+            request.setAttribute("listEmployes", employes);
             request.setAttribute("listLieux", lieux);
         	
             RequestDispatcher dispatcher = request.getRequestDispatcher("affecter-form.jsp");
             dispatcher.forward(request, response);
+            //return; //Évite toute exécution supplémentaire
         }
 
         // 🔹 Afficher le formulaire de modification
         private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        	 Long codeAffecter = Long.parseLong(request.getParameter("codeaffecter"));
-             AffecterModel existingAffectation = affecterDAO.getAffectationById(codeAffecter);
-             request.setAttribute("affectation", existingAffectation);
+        	 String codeAffectation = request.getParameter("codeaffecter");
+        	 
+        	 if ((codeAffectation != null && !codeAffectation.isEmpty())){
+        		 try {
+        			 Long codeaffecter = Long.parseLong(codeAffectation);
+        			 AffecterModel existingAffectation = affecterDAO.getAffectationById(codeaffecter);     
+                     List<EmployeModel> employes = employeDAO.getAllEmployes(); //Récupération de la liste des employés
+                     List<LieuModel> lieux = lieuDAO.getAllLieux(); //Récupération de la liste des lieux
+                     
+                     request.setAttribute("affectation", existingAffectation);
+                     request.setAttribute("listEmployes", employes);
+                     request.setAttribute("listLieux", lieux);
+        		 }
+        		 catch(NumberFormatException e) {
+        	            e.printStackTrace();
+        	     }
+        	 }
+        	 else {
+        	     // C'est un ajout, donc pas besoin de récupérer une affectation existante
+        	     request.setAttribute("affectation", null);
+        	 }
              
-             List<EmployeModel> employes = employeDAO.getAllEmployes(); //Récupération de la liste des employés
-             request.setAttribute("listEmployes", employes);
-
-             List<LieuModel> lieux = lieuDAO.getAllLieux(); //Récupération de la liste des lieux
-             request.setAttribute("listLieux", lieux);
              
-             request.getRequestDispatcher("affecter_form.jsp").forward(request, response);
+             request.getRequestDispatcher("affecter-form.jsp").forward(request, response);
+             //return; //Évite toute exécution supplémentaire
         }
 
         // 🔹 Modifier une affectation
         private void updateAffectation(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        	Long codeAffecter = Long.parseLong(request.getParameter("codeaffecter"));
-            Long codeEmp = Long.parseLong(request.getParameter("codeemp"));
-            Long codeLieu = Long.parseLong(request.getParameter("codelieu"));
+        	Long codeaffecter = Long.parseLong(request.getParameter("codeaffecter"));
+            Long codeemp = Long.parseLong(request.getParameter("codeemp"));
+            Long codelieu = Long.parseLong(request.getParameter("codelieu"));
             String dateString = request.getParameter("date");
             
             // Conversion de la date saisie (format: yyyy-MM-dd)
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateAffectation = null;
+            Date date = null;
 			try {
-				dateAffectation = formatter.parse(dateString);
+				date = formatter.parse(dateString);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-            EmployeModel employe = employeDAO.getEmployeById(codeEmp);
-            LieuModel lieu = lieuDAO.getLieuById(codeLieu);
+            EmployeModel employe = employeDAO.getEmployeById(codeemp);
+            LieuModel lieu = lieuDAO.getLieuById(codelieu);
 
-            AffecterModel affectation = new AffecterModel(employe, lieu, dateAffectation);
-            affectation.setCodeaffecter(codeAffecter);
+            AffecterModel affectation = new AffecterModel(employe, lieu, date);
+            affectation.setCodeaffecter(codeaffecter);
             affecterDAO.updateAffectation(affectation);
             
             response.sendRedirect("listAffectations");

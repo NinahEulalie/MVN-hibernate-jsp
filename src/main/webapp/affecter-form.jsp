@@ -26,21 +26,17 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
 <div class="container col-md-5">
     <div class="card">
         <div class="card-body">
-			<h2><%= request.getParameter("codeaffecter") == null ? "Ajouter" : "Modifier" %> une Affectation</h2>
-
-		    <form action="AffecterServlet" method="post">
-		        <input type="hidden" name="action" value="<%= request.getParameter("codeaffecter") == null ? "addAffectation" : "updateAffectation" %>">
-		        
-		        <% 
-		            AffecterModel affectation = (AffecterModel) request.getAttribute("affectation");
-		            Long codeAffecter = affectation != null ? affectation.getCodeaffecter() : null;
-		            Long selectedEmploye = affectation != null ? affectation.getEmploye().getCodeemp() : null;
-		            Long selectedLieu = affectation != null ? affectation.getLieu().getCodelieu() : null;
-		        %>
-		        
-		        <% if (codeAffecter != null) { %>
-		            <input type="hidden" name="codeaffecter" value="<%= codeAffecter %>">
-		        <% } %>           
+			<c:choose>
+                <c:when test="${not empty affecter}">
+                    <form action="<c:url value='/updateAffectation' />" method="post">
+                        <h2>Modifier une affectation</h2>
+                        <input type="hidden" name="idpret" value="<c:out value='${affectation.codeaffecter}' />" />
+                </c:when>
+                <c:otherwise>
+                    <form action="<c:url value='/addAffectation' />" method="post">
+                        <h2>Ajouter une affectation</h2>
+                </c:otherwise>
+            </c:choose>        
 		         
 	            <fieldset class="form-group">
 	                <label>Employé :</label>
@@ -88,7 +84,7 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
 
 	            <fieldset class="form-group">
 	                <label for="date">Date d'affectation :</label>
-					<input type="date" id="date_affectation" name="date" required>
+					<input type="date" id="date" name="date" required>
 	            </fieldset>
 
             	<button type="submit" class="btn btn-success">Enregistrer</button>

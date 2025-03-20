@@ -41,7 +41,16 @@ public class AffecterDAO {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            affectations = session.createQuery("from AffecterModel").list();
+            affectations = session.createQuery("FROM AffecterModel", AffecterModel.class).list();
+            
+            // Chargement explicite des relations avant de fermer la session
+            for (AffecterModel affectation : affectations) {
+                affectation.getEmploye().getNom(); //Force le chargement de l'employé
+                affectation.getEmploye().getPrenom();
+                affectation.getEmploye().getPoste();
+                affectation.getLieu().getDesignation(); //Force le chargement du lieu
+                affectation.getLieu().getProvince();
+            }
 
 
             transaction.commit();
