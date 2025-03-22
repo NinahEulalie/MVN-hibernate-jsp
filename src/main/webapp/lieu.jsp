@@ -23,7 +23,7 @@
 		    background:rgb (237, 237, 240);
 		    }
 		    .navbar-custom {
-		        background-color: tomato;
+		        background-color: 117554;
 		        height: 80px; /* Ajustez la hauteur selon vos besoins */
 		        display: flex;
 		        align-items: center;
@@ -31,7 +31,7 @@
 		    }
 		    .navbar-custom .navbar-brand {
 		        font-size: 1.5rem; /* Ajustez la taille de la police */
-		        color: black; /* Change la couleur des liens en noir */
+		        color: white; /* Change la couleur des liens en noir */
 		    }
 		    .navbar-custom .navbar-nav {
 		        display: flex;
@@ -115,9 +115,13 @@
 			            <td><%= lieu.getDesignation() %></td>
 			            <td><%= lieu.getProvince() %></td>
             			<td>
-			                <a href="editFormLieu?codelieu=<%= lieu.getCodelieu() %>">Modifier</a> |
+			                <a href="editFormLieu?codelieu=<%= lieu.getCodelieu() %>">
+			                	<img src="<%=request.getContextPath()%>/assets/editing.png" alt="Edit" style="width: 25px; height: 25px;">
+			                </a> &nbsp;&nbsp;&nbsp;&nbsp;
 							<a href="deleteLieu?codelieu=<%= lieu.getCodelieu() %>" 
-							onclick="return confirm('Supprimer ce lieu ?')">Supprimer</a>
+							onclick="return confirm('Supprimer ce lieu ?')">
+								<img src="<%=request.getContextPath()%>/assets/trash.png" alt="Delete" style="width: 25px; height: 25px;">
+							</a>
             			</td>		
 					</tr>
 	      				<% } %>

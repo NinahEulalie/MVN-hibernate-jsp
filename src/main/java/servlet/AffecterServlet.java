@@ -32,10 +32,6 @@ public class AffecterServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String action = request.getServletPath();
         System.out.println("Action: " + action);
 
@@ -44,17 +40,41 @@ public class AffecterServlet extends HttpServlet {
                 case "/addAffectation":
                 	addAffectation(request, response);
                     break;
-                case "/deleteAffectation":
-                	deleteAffectation(request, response);
-                    break;
-                case "/newFormAffecter":
+                /**case "/newFormAffecter":
                     showNewForm(request, response);
+                    break;*/
                 case "/editFormAffecter":
                     showEditForm(request, response);
                     break;
                 case "/updateAffectation":
                 	updateAffectation(request, response);
                     break;
+                default:
+                	listAllAffectations(request, response);
+                    break;
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ServletException(ex);
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String action = request.getServletPath();
+        System.out.println("Action: " + action);
+
+        try {
+            switch (action) {
+                case "/deleteAffectation":
+                	deleteAffectation(request, response);
+                    break;
+                case "/newFormAffecter":
+                    showNewForm(request, response);
+                    break;
+                case "/editFormAffecter":
+                        showEditForm(request, response);
+                        break;
                 default:
                 	listAllAffectations(request, response);
                     break;

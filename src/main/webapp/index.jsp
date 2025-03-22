@@ -10,9 +10,9 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color:117554">
         <div>
-            <a href="https://www.javaguides.net" class="navbar-brand">AFFECTATION D'EMPLOYES</a>
+            <a class="navbar-brand" style="color:white">AFFECTATION D'EMPLOYES</a>
         </div>
     </nav>
 </header>

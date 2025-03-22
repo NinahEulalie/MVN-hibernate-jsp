@@ -24,7 +24,7 @@ model.EmployeModel, model.LieuModel" %>
 		    background:rgb (237, 237, 240);
 		    }
 		    .navbar-custom {
-		        background-color: tomato;
+		        background-color: 117554;
 		        height: 80px; /* Ajustez la hauteur selon vos besoins */
 		        display: flex;
 		        align-items: center;
@@ -32,7 +32,7 @@ model.EmployeModel, model.LieuModel" %>
 		    }
 		    .navbar-custom .navbar-brand {
 		        font-size: 1.5rem; /* Ajustez la taille de la police */
-		        color: black; /* Change la couleur des liens en noir */
+		        color: white; /* Change la couleur des liens en noir */
 		    }
 		    .navbar-custom .navbar-nav {
 		        display: flex;
@@ -122,9 +122,14 @@ model.EmployeModel, model.LieuModel" %>
 		                <td><%= affectation.getLieu().getProvince() %></td>
 		                <td><%= affectation.getDate() %></td>
 		                <td>
-		                    <a href="/editFormAffecter?codeaffecter=<%= affectation.getCodeaffecter() %>">Modifier</a> | 
-		                    <a href="/deleteAffectation?codeaffecter=<%= affectation.getCodeaffecter() %>" 
-		                    onclick="return confirm('Voulez-vous vraiment supprimer cette affectation ?');">Supprimer</a>
+		                    <a href="editFormAffecter?codeaffecter=<%= affectation.getCodeaffecter() %>">
+		                    	<img src="<%=request.getContextPath()%>/assets/editing.png" alt="Edit" style="width: 25px; height: 25px;">
+			                </a> &nbsp;&nbsp;&nbsp;&nbsp;
+		                    <a href="deleteAffectation?codeaffecter=<%= affectation.getCodeaffecter() %>" 
+		                    onclick="return confirm('Voulez-vous vraiment supprimer cette affectation ?');">
+		                    	<img src="<%=request.getContextPath()%>/assets/trash.png" alt="Delete" style="width: 25px; height: 25px;">
+							</a>
+		                    
 		                </td>		
 					</tr>
 	      				<% } %>

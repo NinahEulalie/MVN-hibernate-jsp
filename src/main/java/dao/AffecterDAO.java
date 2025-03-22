@@ -20,10 +20,30 @@ public class AffecterDAO {
 
     // READ (récupérer une affectation par ID)
     public AffecterModel getAffectationById(Long id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        AffecterModel affectation = (AffecterModel) session.get(AffecterModel.class, id);
-        session.close();
-        return affectation;
+    	Session session = null;
+        Transaction transaction = null;
+        AffecterModel affectation = null;
+         try {
+        	 session = HibernateUtil.getSessionFactory().getCurrentSession();
+             transaction = session.beginTransaction();
+             
+
+             affectation = (AffecterModel) session.get(AffecterModel.class, id);
+             
+             transaction.commit();
+         }
+         catch (Exception e) {
+             if (transaction != null) {
+                 transaction.rollback();
+             }
+             e.printStackTrace();
+         } 
+         finally {
+             if (session != null) {
+                 session.close();  // ✅ Fermer la session ici
+             }
+         }
+		return affectation;
     }
     
     /**
@@ -61,12 +81,14 @@ public class AffecterDAO {
             } else {
                 System.out.println("✅ Affectations trouvées : " + affectations.size());
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-        } finally {
+        } 
+        finally {
             if (session != null) {
                 session.close();  // ✅ Fermer la session ici
             }

@@ -18,7 +18,7 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark"  style="background-color:117554">
         <a class="navbar-brand" href="#">Affecter</a>
     </nav>
 </header>
@@ -27,10 +27,10 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
     <div class="card">
         <div class="card-body">
 			<c:choose>
-                <c:when test="${not empty affecter}">
+                <c:when test="${affectation != null}">
                     <form action="<c:url value='/updateAffectation' />" method="post">
                         <h2>Modifier une affectation</h2>
-                        <input type="hidden" name="idpret" value="<c:out value='${affectation.codeaffecter}' />" />
+                        <input type="hidden" name="codeaffecter" value="<c:out value='${affectation.codeaffecter}' />" />
                 </c:when>
                 <c:otherwise>
                     <form action="<c:url value='/addAffectation' />" method="post">
@@ -40,7 +40,7 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
 		         
 	            <fieldset class="form-group">
 	                <label>Employé :</label>
-			        <select name="codeemp" required>
+			        <select name="codeemp" class="form-control" required>
 			            <%
 			                List<EmployeModel> employes = (List<EmployeModel>) request.getAttribute("listEmployes");
 				            if (employes != null) {
@@ -62,14 +62,14 @@ model.EmployeModel, model.LieuModel, dao.EmployeDAO, dao.LieuDAO" %>
 
 	            <fieldset class="form-group">
 	                <label>Lieu :</label>
-			        <select name="codelieu" required>
+			        <select name="codelieu" class="form-control" required>
 			            <%
 			                List<LieuModel> lieux = (List<LieuModel>) request.getAttribute("listLieux");
 				            if (lieux != null) {
 				                for (LieuModel lieu : lieux) {
 				        %>
 				                    <option value="<%= lieu.getCodelieu() %>">
-				                        <%= lieu.getDesignation() %> <%= lieu.getProvince() %>
+				                        <%= lieu.getDesignation() %> - <%= lieu.getProvince() %>
 				                    </option>
 				        <%
 				                }

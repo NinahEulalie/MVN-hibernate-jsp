@@ -24,7 +24,7 @@
 		    background:rgb (237, 237, 240);
 		    }
 		    .navbar-custom {
-		        background-color: tomato;
+		        background-color: 117554;
 		        height: 80px; /* Ajustez la hauteur selon vos besoins */
 		        display: flex;
 		        align-items: center;
@@ -32,7 +32,7 @@
 		    }
 		    .navbar-custom .navbar-brand {
 		        font-size: 1.5rem; /* Ajustez la taille de la police */
-		        color: black; /* Change la couleur des liens en noir */
+		        color: white; /* Change la couleur des liens en noir */
 		    }
 		    .navbar-custom .navbar-nav {
 		        display: flex;
@@ -41,7 +41,7 @@
 		    }
 		    .navbar-custom .nav-link {
 		        margin: 0 15px; /* Ajouter un espace entre les liens */
-		        color: black; /* Change la couleur des liens en blanc */
+		        color: white; /* Change la couleur des liens en blanc */
 		        font-size: 1.5rem; /* Ajuster la taille de la police */
 		    }
 		    .navbar-custom .nav-link:hover {
@@ -71,7 +71,7 @@
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark navbar-custom">
-            <div href="https://www.javaguides.net" class="navbar-brand">GESTION D'AFFECTATIONS D'EMPLOYES</div>
+            <div class="navbar-brand">GESTION D'AFFECTATIONS D'EMPLOYES</div>
           <ul class="navbar-nav">
                 <li class="nav-item" id="membre" >
                     <a href="<%=request.getContextPath()%>/listEmployes" class="nav-link">Employés</a>
@@ -122,9 +122,13 @@
 			            <td><%= e.getPrenom() %></td>
 			            <td><%= e.getPoste() %></td>
             			<td>
-			                <a href="editFormEmploye?codeemp=<%= e.getCodeemp() %>">Modifier</a> 
+			                <a href="editFormEmploye?codeemp=<%= e.getCodeemp() %>">
+			                	<img src="<%=request.getContextPath()%>/assets/editing.png" alt="Edit" style="width: 25px; height: 25px;">
+			                </a> &nbsp;&nbsp;&nbsp;&nbsp;
 							<a href="deleteEmploye?codeemp=<%= e.getCodeemp() %>" 
-							onclick="return confirm('Supprimer cet employé ?')">Supprimer</a>
+							onclick="return confirm('Supprimer cet employé ?')">
+								<img src="<%=request.getContextPath()%>/assets/trash.png" alt="Delete" style="width: 25px; height: 25px;">
+							</a>
             			</td>		
 					</tr>
 	      				<% } %>
